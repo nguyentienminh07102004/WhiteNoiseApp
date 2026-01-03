@@ -1,46 +1,21 @@
-import useThemeColor from "@/hooks/useThemeColor";
-import { Drawer } from "expo-router/drawer";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import "./global.css";
+import { Stack } from "expo-router";
+import './global.css';
+import { useFonts } from "expo-font";
 
-export default function RootLayout() {
-  const styleConfigForTheme = useThemeColor({});
-  return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <Drawer
-        initialRouteName="(home)"
-        screenOptions={{
-          sceneStyle: {
-            backgroundColor: styleConfigForTheme.background
-          },
-          headerStyle: {
-            backgroundColor: styleConfigForTheme.background
-          },
-          headerTitleStyle: {
-            color: styleConfigForTheme.text
-          }
-        }}
-      >
-        <Drawer.Screen
-          name="home"
-          options={{
-            title: "Home",
-            drawerLabel: "Home"
-          }}
-        />
-        <Drawer.Screen
-          name="profile"
-          options={{
-            title: "Profile"
-          }}
-        />
-        <Drawer.Screen
-          name="likedSong"
-          options={{
-            title: "Liked Song"
-          }}
-        />
-      </Drawer>
-    </GestureHandlerRootView>
-  );
+export default function AppLayout() {
+    useFonts({
+        "Gilroy-Bold": require("../assets/fonts/Gilroy-Bold.ttf"),
+        "Gilroy-Medium": require('../assets/fonts/Gilroy-Medium.ttf'),
+        "Gilroy-Light": require('../assets/fonts/Gilroy-Light.ttf'),
+        "Gilroy-Regular": require('../assets/fonts/Gilroy-Regular.ttf'),
+        "Gilroy-SemiBold": require('../assets/fonts/Gilroy-SemiBold.ttf')
+      })
+    return <>
+        <Stack initialRouteName="(drawer)" screenOptions={{
+            headerShown: false
+        }}>
+            <Stack.Screen name="+not-found" />
+            <Stack.Screen name="(drawer)" />
+        </Stack>
+    </>
 }
